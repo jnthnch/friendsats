@@ -1,7 +1,11 @@
 process.env.NODE_ENV = "test";
 const db = require("../db")
 const request = require("supertest");
+const bcrypt = require("bcrypt")
 const app = require("../app");
+const jwt = require("jsonwebtoken");
+
+let auth = {};
 
 beforeAll(async () => {
   await db.query(
@@ -9,10 +13,21 @@ beforeAll(async () => {
   );
 });
 
+// create user and log in, save token in auth object
 beforeEach(async () => {
-  await db.query(
-    "INSERT INTO users (username, password) VALUES ('Jonathan', 'curry'), ('Scott', 'curry1') RETURNING *"
-  );
+  const hashedPassword = await bcrypt.hash("basketball", 1);
+  await db.query("INSERT INTO users (username, password) VALUES ('Jonathan', $1)", [
+    hashedPassword
+  ]);
+  const response = await request(app)
+    .post("/users/login")
+    .send({
+      username: "Jonathan",
+      password: "basketball"
+    });
+
+  auth.token = response.body.token;
+  auth.current_user_id = jwt.decode(auth.token).user_id;
 });
 
 afterEach(async () => {
@@ -29,12 +44,23 @@ afterAll(async () => {
 });
 
 describe("GET /users", () => {
-  test("It responds with an array of users", async () => {
-    const response = await request(app).get("/users");
-    expect(response.body.length).toBe(2);
+  test("returns a list of users", async () => {
+    const response = await request(app)
+      .get("/users")
+      .set("authorization", auth.token);
+    expect(response.body.length).toBe(1);
+    expect(response.statusCode).toBe(200);
     expect(response.body[0]).toHaveProperty("username");
     expect(response.body[0]).toHaveProperty("password");
-    expect(response.statusCode).toBe(200);
+  });
+});
+
+describe("GET /users without auth", () => {
+  test("requires login", async () => {
+    // don't add an authorization header with the token...see what happens!
+    const response = await request(app).get("/users/");
+    expect(response.statusCode).toBe(401);
+    expect(response.body.message).toBe("Unauthorized");
   });
 });
 
@@ -51,9 +77,10 @@ describe("POST /users", () => {
     expect(newUser.body.username).toBe("new user");
     expect(newUser.statusCode).toBe(200);
 
-    // make sure we have 3 users now
-    const response = await request(app).get("/users");
-    expect(response.body.length).toBe(3);
+    const response = await request(app)
+      .get("/users")
+      .set("authorization", auth.token);
+    expect(response.body.length).toBe(2);
   });
 });
 

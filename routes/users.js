@@ -4,9 +4,20 @@ const router = express.Router();
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 
-const SECRET = "SECRETKEY";
+const SECRET = "unknown_key";
 
-router.get("/", async (req, res, next) => {
+
+function ensureLoggedIn(req, res, next) {
+  try {
+    const authHeaderValue = req.headers.authorization;
+    const token = jwt.verify(authHeaderValue, SECRET);
+    return next();
+  } catch (e) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+}
+
+router.get("/", ensureLoggedIn, async (req, res, next) => {
   try {
     const result = await db.query("SELECT * FROM users");
     return res.json(result.rows);
@@ -30,28 +41,29 @@ router.post("/", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    // try to find the user first
     const foundUser = await db.query(
       "SELECT * FROM users WHERE username=$1 LIMIT 1",
       [req.body.username]
     );
+
     if (foundUser.rows.length === 0) {
       return res.json({ message: "Invalid Username" });
     }
-    // if the user exists, let's compare their hashed password to a new hash from req.body.password
+    // if the user exists, let's compare their stored hashed password to a new hash from req.body.password
     const hashedPassword = await bcrypt.compare(
       req.body.password,
       foundUser.rows[0].password
     );
+
     // bcrypt.compare returns a boolean to us, if it is false the passwords did not match!
     if (hashedPassword === false) {
       return res.json({ message: "Invalid Password" });
     }
 
-    // let's create a token using the sign() method
-    const token = jsonwebtoken.sign(
+    // create a token using the sign() method
+    const token = jwt.sign(
       // the first parameter is an object which will become the payload of the token
-      { username: foundUser.rows[0].username },
+      { user_id: foundUser.rows[0].id },
       // the second parameter is the secret key we are using to "sign" or encrypt the token
       SECRET,
       // the third parameter is an object where we can specify certain properties of the token
@@ -59,6 +71,9 @@ router.post("/login", async (req, res, next) => {
         expiresIn: 60 * 60 // expire in one hour
       }
     );
+    // token = {
+    // token: 'efjkdlsjfdsklfdsjfdsk'
+    // }
     // send back an object with the key of token and the value of the token variable defined above
     return res.json({ token });
   } catch (e) {
@@ -66,15 +81,6 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-function ensureLoggedIn(req, res, next) {
-  try {
-    const authHeaderValue = req.headers.authorization;
-    const token = jwt.verify(authHeaderValue, SECRET);
-    return next();
-  } catch (e) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
-}
 
 router.get("/secret", ensureLoggedIn, async function (req, res, next) {
   try {
