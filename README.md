@@ -1,1 +1,1 @@
-# friendsats
+# friends against the spread
