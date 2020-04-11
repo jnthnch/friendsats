@@ -1,8 +1,7 @@
 const { Client } = require("pg");
-const db = process.env.NODE_ENV === "test" ? "users-test" : "users";
 
-client = new Client({
-  connectionString: `postgresql://localhost/${db}`
+const client = new Client({
+  connectionString: "postgresql://localhost/friendsats"
 });
 
 client.connect();

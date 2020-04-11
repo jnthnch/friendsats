@@ -1,15 +1,32 @@
 const express = require("express");
 const app = express();
-const db = require('./db');
 const bodyParser = require("body-parser");
-const userRoutes = require('./routes/users')
-const users = ["Jonathan", "Scott", "Grant", "Swan"];
+const morgan = require("morgan");
+const usersRoutes = require("./routes/users");
 
+app.use(morgan("tiny"));
 app.use(bodyParser.json());
-app.use("/users", userRoutes);
+app.use("/users", usersRoutes);
 
-app.get("/", (req, res) => {
-  return res.json(users);
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  var err = new Error("Not Found");
+  err.status = 404;
+  return next(err);
 });
 
-module.exports = app;
+// development error handler
+// will print stacktrace
+if (app.get("env") === "development") {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    return res.json({
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+app.listen(3000, () => {
+  console.log("Getting started on port 3000!");
+});
