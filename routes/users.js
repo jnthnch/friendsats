@@ -84,6 +84,7 @@ router.get("/secret", ensureLoggedIn, async function (req, res, next) {
   }
 });
 
+
 // protect routes
 function ensureCorrectUser(req, res, next) {
   try {

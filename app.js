@@ -27,6 +27,8 @@ if (app.get("env") === "development") {
   });
 }
 
-app.listen(3000, () => {
-  console.log("Getting started on port 3000!");
-});
+// app.listen(3000, () => {
+//   console.log("Getting started on port 3000!");
+// });
+
+module.exports = app;
