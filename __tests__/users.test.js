@@ -55,7 +55,7 @@ describe("GET /users", () => {
   });
 });
 
-describe("GET /users without auth", () => {
+describe("GET /users without auth returns Unauthorized", () => {
   test("requires login", async () => {
     // don't add an authorization header with the token...see what happens!
     const response = await request(app).get("/users/");
