@@ -3,22 +3,23 @@ import './styles.css';
 
 import OneMatchup from './OneMatchup.jsx'
 import gameSpreads from '../data/gameSpreads'
+import OneSelection from './OneSelection.jsx'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      gameSpreads: [],
       selections: [],
-      gameSpreads: []
+      selectionsMade: 0,
     }
-
     this.addUserSelection = this.addUserSelection.bind(this)
   }
 
   componentDidMount() {
     this.setState({
       gameSpreads: gameSpreads
-    }, () => { console.log('set state', this.state) })
+    })
   }
 
   addUserSelection(selection) {
@@ -28,7 +29,8 @@ class App extends React.Component {
   }
 
   render() {
-    var style = {
+    const { gameSpreads, selections } = this.state
+    const style = {
       backgroundColor: '#f4eee1',
       height: '100vh'
     };
@@ -39,10 +41,17 @@ class App extends React.Component {
         </section>
         <section className="main">
           <div className="make-selections">
-            <OneMatchup addUserSelection={this.addUserSelection}></OneMatchup>
+            {gameSpreads.map((game) =>
+              <OneMatchup key={game.gameId} game={game} addUserSelection={this.addUserSelection}></OneMatchup>
+            )}
           </div>
           <div className="tracked-selections">
-            <h1>Your submissions</h1>
+            <div>
+              <h1>Your selections</h1>
+              {selections.map((selection) => (
+                <OneSelection selection={selection}></OneSelection>
+              ))}
+            </div>
           </div>
         </section>
       </div>

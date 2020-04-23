@@ -3,7 +3,10 @@ import React from 'react';
 class OneMatchup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = {
+      value: '',
+      disabled: false
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addUserSelection = this.props.addUserSelection
@@ -14,23 +17,29 @@ class OneMatchup extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('your selection is ' + this.state.value);
     this.addUserSelection(this.state.value)
+    if (this.state.disabled) {
+      return
+    } else {
+      this.setState({ disabled: true })
+    }
     event.preventDefault();
   }
 
   render() {
-    var style = {
+    const { value, disabled } = this.state
+    const { homeTeam, awayTeam, homeSpread, awaySpread } = this.props.game
+    const style = {
       backgroundColor: 'gray',
       display: 'flex',
       width: '100%',
       justifyContent: 'space-between'
     };
-    var teamColumn = {
+    const teamColumn = {
       display: 'flex',
       flexDirection: 'column'
     }
-    var spreadColumn = {
+    const spreadColumn = {
       display: 'flex',
       flexDirection: 'column'
     }
@@ -38,31 +47,30 @@ class OneMatchup extends React.Component {
       <div style={style}>
         <section style={teamColumn}>
           <div>
-            49ers
+            {awayTeam}
           </div>
           <div>
-            Rams
+            {homeTeam}
           </div>
         </section>
         <section style={spreadColumn}>
           <div>
-            -1
+            {awaySpread}
           </div>
           <div>
-            +1
+            {homeSpread}
           </div>
         </section>
         <section>
           <form onSubmit={this.handleSubmit}>
             <label>
-              make a selection:
-            <select value={this.state.value} onChange={this.handleChange}>
-                <option value="0">mypick</option>
-                <option value="49ers -1">49ers -1</option>
-                <option value="Rams +1">Rams +1</option>
+              <select value={value} onChange={this.handleChange}>
+                <option value="0" hidden>select</option>
+                <option value={awayTeam + awaySpread}>{awayTeam} {awaySpread}</option>
+                <option value={homeTeam + homeSpread}>{homeTeam} {homeSpread}</option>
               </select>
             </label>
-            <input type="submit" value="Submit" />
+            <input type="submit" disabled={disabled} value="Submit" />
           </form>
         </section>
       </div>

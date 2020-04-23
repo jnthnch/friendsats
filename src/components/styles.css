@@ -18,6 +18,8 @@
 
 .make-selections {
   display: flex;
+  flex-direction: column;
+  min-height: 50vh;
   justify-content: space-between;
   flex: 0 0 50%;
   background-color: var(--brown)
@@ -28,4 +30,14 @@
   display: flex;
   justify-content: space-between;
   flex: 0 0 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .make-selections {
+    flex: 0 0 65%;
+  }
+  
+  .tracked-selections {
+    flex: 0 0 35%;
+  }
 }
