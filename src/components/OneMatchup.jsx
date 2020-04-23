@@ -4,9 +4,9 @@ class OneMatchup extends React.Component {
   constructor(props) {
     super(props);
     this.state = { value: '' };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.addUserSelection = this.props.addUserSelection
   }
 
   handleChange(event) {
@@ -15,6 +15,7 @@ class OneMatchup extends React.Component {
 
   handleSubmit(event) {
     alert('your selection is ' + this.state.value);
+    this.addUserSelection(this.state.value)
     event.preventDefault();
   }
 
