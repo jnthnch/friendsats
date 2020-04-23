@@ -1,0 +1,31 @@
+:root {
+  --dark-grey: #5d5c61;
+  --light-grey: #379683;
+  --grey-blue: #7395AE;
+  --darker-blue: #557A95;
+  --brown: #B1A296;
+}
+
+.section-header {
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.make-selections {
+  display: flex;
+  justify-content: space-between;
+  flex: 0 0 50%;
+  background-color: var(--brown)
+}
+
+.tracked-selections {
+  background-color: var(--darker-blue);
+  display: flex;
+  justify-content: space-between;
+  flex: 0 0 50%;
+}

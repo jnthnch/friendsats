@@ -1,10 +1,27 @@
+import React from 'react';
+import './styles.css';
+
+import OneMatchup from './OneMatchup.jsx'
+
 class App extends React.Component {
   render() {
-    var style = { color: 'red' };
+    var style = {
+      backgroundColor: '#f4eee1',
+      height: '100vh'
+    };
     return (
-      <div>
-        <h1 style={style}>Hello {this.props.name}!</h1>
-        <p className="primary-text">This should be large blue text</p>
+      <div style={style}>
+        <section className="section-header">
+          <h1>NFL Week 1</h1>
+        </section>
+        <section className="main">
+          <div className="make-selections">
+            <OneMatchup></OneMatchup>
+          </div>
+          <div className="tracked-selections">
+            <h1>Your submissions</h1>
+          </div>
+        </section>
       </div>
     );
   }

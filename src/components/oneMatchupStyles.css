@@ -1,0 +1,6 @@
+/* div:nth-child(4n), div:nth-child(4n-1) {
+  background: red;
+}
+div:nth-child(4n-2), div:nth-child(4n-3) {
+  background: blue;
+} */
