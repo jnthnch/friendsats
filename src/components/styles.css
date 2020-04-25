@@ -1,3 +1,5 @@
+@import "oneSelectionStyles.css";
+
 :root {
   --dark-grey: #5d5c61;
   --light-grey: #379683;
@@ -16,7 +18,7 @@
   justify-content: space-evenly;
 }
 
-.make-selections {
+.main > .make-selections {
   display: flex;
   flex-direction: column;
   min-height: 50vh;
@@ -25,11 +27,33 @@
   background-color: var(--brown)
 }
 
-.tracked-selections {
+.main > .tracked-selections {
   background-color: var(--darker-blue);
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 50px 50px 1fr;
+  grid-template-areas: 
+  "hd hd hd"
+  "record record record"
+  "picks picks picks";
   flex: 0 0 50%;
+}
+
+.tracked-selections > header {
+  grid-area: hd;
+  background-color: orange;
+  text-align: center;
+}
+
+.tracked-selections > section {
+  grid-area: record;
+  background-color: pink;
+  text-align: center;
+}
+
+.tracked-selections > .selections-list {
+  grid-area: picks;
+  background-color: orange;
 }
 
 @media screen and (max-width: 600px) {

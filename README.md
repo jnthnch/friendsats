@@ -16,4 +16,4 @@
 * user_id
 * game_id
 * selection
-* correctOrIncorrect
+* winLossPush

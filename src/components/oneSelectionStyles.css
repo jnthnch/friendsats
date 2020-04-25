@@ -1,0 +1,11 @@
+.single-selection {
+  display: grid;
+  grid-template-columns: 200px 200px;
+  grid-template-areas: 
+  "selection result";
+}
+
+.single-selection > .selection-result {
+  grid-area: result;
+  background-color: purple;
+}

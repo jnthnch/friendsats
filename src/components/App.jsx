@@ -12,8 +12,14 @@ class App extends React.Component {
       gameSpreads: [],
       selections: [],
       selectionsMade: 0,
+      wins: 0,
+      losses: 0,
+      pushes: 0,
     }
     this.addUserSelection = this.addUserSelection.bind(this)
+    this.addWin = this.addWin.bind(this);
+    this.addLoss = this.addLoss.bind(this);
+    this.addPush = this.addPush.bind(this);
   }
 
   componentDidMount() {
@@ -28,8 +34,31 @@ class App extends React.Component {
     }, () => { console.log('new state sir', this.state) })
   }
 
+  addWin() {
+    this.setState(prevState => {
+      return { wins: prevState.wins + 1 }
+    })
+  }
+
+  addLoss() {
+    this.setState(prevState => {
+      return { losses: prevState.losses + 1 }
+    }, () => {
+      console.log('this State', this.state)
+    })
+  }
+
+  addPush() {
+    this.setState(prevState => {
+      return { pushes: prevState.pushes + 1 }
+    })
+  }
+
   render() {
-    const { gameSpreads, selections } = this.state
+    const { gameSpreads, selections, wins, losses, pushes } = this.state;
+    const sum = wins + losses + pushes;
+    const pushesPercent = pushes * 0.5;
+    const winPercent = sum === 0 ? '0.00' : (Math.round(((wins + pushesPercent) / sum) * 1000) / 1000).toFixed(3)
     const style = {
       backgroundColor: '#f4eee1',
       height: '100vh'
@@ -46,10 +75,17 @@ class App extends React.Component {
             )}
           </div>
           <div className="tracked-selections">
-            <div>
-              <h1>Your selections</h1>
-              {selections.map((selection) => (
-                <OneSelection selection={selection}></OneSelection>
+            <header>Your selections</header>
+            <section>
+              <p>{wins} - {losses} - {pushes}
+                <br />
+              win % : {winPercent}
+              </p>
+
+            </section>
+            <div className="selections-list">
+              {selections.map((selection, idx) => (
+                <OneSelection selection={selection} addWin={this.addWin} addLoss={this.addLoss} addPush={this.addPush} key={idx}></OneSelection>
               ))}
             </div>
           </div>

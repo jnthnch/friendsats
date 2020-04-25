@@ -1,8 +1,15 @@
 import React from 'react';
 
-const OneSelection = ({ selection }) => {
+const OneSelection = ({ selection, addWin, addLoss, addPush }) => {
   return (
-    <li>{selection}</li>
+    <div className="single-selection">
+      <p>{selection}</p>
+      <div className="selection-result">
+        <button onClick={addWin}>win</button>
+        <button onClick={addLoss}>loss</button>
+        <button onClick={addPush}>push</button>
+      </div>
+    </div>
   )
 }
 
