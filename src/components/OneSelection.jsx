@@ -1,16 +1,52 @@
 import React from 'react';
 
-const OneSelection = ({ selection, addWin, addLoss, addPush }) => {
-  return (
-    <div className="single-selection">
-      <p>{selection}</p>
-      <div className="selection-result">
-        <button onClick={addWin}>win</button>
-        <button onClick={addLoss}>loss</button>
-        <button onClick={addPush}>push</button>
-      </div>
-    </div>
-  )
+class OneSelection extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      disabled: false
+    }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    if (this.state.disabled) {
+      return
+    } else {
+      this.setState({ disabled: true })
+    }
+  }
+
+  render() {
+    const { selection, addWin, addLoss, addPush } = this.props;
+    const { disabled } = this.state;
+    const handleResult = (callback) => {
+      this.handleClick();
+      callback();
+    }
+    return (
+      <div className="single-selection" >
+        <p>{selection}</p>
+        <div className="selection-result" >
+          <button
+            disabled={disabled}
+            onClick={() => { handleResult(addWin) }}>win</button>
+          <button
+            disabled={disabled}
+            onClick={() => {
+              handleResult(addLoss)
+            }
+            }>loss</button>
+          <button
+            disabled={disabled}
+            onClick={() => {
+              handleResult(addPush)
+            }
+            }>push</button>
+        </div>
+      </div >
+    )
+  }
 }
 
 export default OneSelection;

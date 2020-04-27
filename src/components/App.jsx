@@ -5,12 +5,22 @@ import OneMatchup from './OneMatchup.jsx'
 import gameSpreads from '../data/gameSpreads'
 import OneSelection from './OneSelection.jsx'
 
+// selection = {
+//   game_id:
+//   time:
+//   selectionTeam: ex) homeTeam or awayTeam
+//   selectionSpread: ex) -3
+//     is_won:
+//   is_push
+// }
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       gameSpreads: [],
       selections: [],
+      selectionResults: [],
       selectionsMade: 0,
       wins: 0,
       losses: 0,
@@ -31,7 +41,7 @@ class App extends React.Component {
   addUserSelection(selection) {
     this.setState({
       selections: [...this.state.selections, selection]
-    }, () => { console.log('new state sir', this.state) })
+    }, () => { console.log('user selections', this.state.selections) })
   }
 
   addWin() {
@@ -71,7 +81,7 @@ class App extends React.Component {
         <section className="main">
           <div className="make-selections">
             {gameSpreads.map((game) =>
-              <OneMatchup key={game.gameId} game={game} addUserSelection={this.addUserSelection}></OneMatchup>
+              <OneMatchup key={game.id} game={game} addUserSelection={this.addUserSelection}></OneMatchup>
             )}
           </div>
           <div className="tracked-selections">
@@ -81,7 +91,6 @@ class App extends React.Component {
                 <br />
               win % : {winPercent}
               </p>
-
             </section>
             <div className="selections-list">
               {selections.map((selection, idx) => (

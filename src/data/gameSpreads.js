@@ -1,33 +1,43 @@
 const gameSpreads = [
   {
-    gameId: 1,
+    id: 1,
     homeTeam: '49ers',
-    awayTeam: 'Rams',
+    awayTeam: 'Seahawks',
     homeSpread: '-3',
-    awaySpread: '+3'
+    awaySpread: '+3',
+    homeScore: null,
+    awayScore: null
   },
   {
-    gameId: 2,
+    id: 2,
     homeTeam: 'Bucs',
     awayTeam: 'Saints',
     homeSpread: '-1.5',
-    awaySpread: '+1.5'
+    awaySpread: '+1.5',
+    homeScore: null,
+    awayScore: null
   },
   {
-    gameId: 3,
+    id: 3,
     homeTeam: 'Raiders',
     awayTeam: 'Broncos',
     homeSpread: '-2.5',
-    awaySpread: '+2.5'
+    awaySpread: '+2.5',
+    homeScore: null,
+    awayScore: null
   },
   {
-    gameId: 4,
+    id: 4,
     homeTeam: 'Chiefs',
     awayTeam: 'Titans',
     homeSpread: '-7',
-    awaySpread: '+7'
+    awaySpread: '+7',
+    homeScore: null,
+    awayScore: null
   },
 ];
+
+//INSERT INTO games (id, home_team, away_team, home_spread, away_spread) VALUES (10, '49ers', 'Seahawks', '-3', '+3');
 
 
 export default gameSpreads;

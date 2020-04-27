@@ -64,10 +64,10 @@ class OneMatchup extends React.Component {
         <section>
           <form onSubmit={this.handleSubmit}>
             <label>
-              <select value={value} onChange={this.handleChange}>
-                <option value="0" hidden>select</option>
-                <option value={awayTeam + awaySpread}>{awayTeam} {awaySpread}</option>
-                <option value={homeTeam + homeSpread}>{homeTeam} {homeSpread}</option>
+              <select value={value} onChange={this.handleChange} required>
+                <option value="" hidden>select</option>
+                <option value={`${awayTeam} ${awaySpread}`}>{awayTeam} {awaySpread}</option>
+                <option value={`${homeTeam} ${homeSpread}`}>{homeTeam} {homeSpread}</option>
               </select>
             </label>
             <input type="submit" disabled={disabled} value="Submit" />
