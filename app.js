@@ -9,6 +9,7 @@ const gamesRoutes = require('./routes/games')
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
 app.use("/users", usersRoutes);
+app.use("/games", gamesRoutes);
 
 app.use(express.static(__dirname + '/public'));
 

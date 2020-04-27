@@ -28,7 +28,7 @@ class OneMatchup extends React.Component {
 
   render() {
     const { value, disabled } = this.state
-    const { homeTeam, awayTeam, homeSpread, awaySpread } = this.props.game
+    const { home_team, away_team, home_spread, away_spread } = this.props.game
     const style = {
       backgroundColor: 'gray',
       display: 'flex',
@@ -47,18 +47,18 @@ class OneMatchup extends React.Component {
       <div style={style}>
         <section style={teamColumn}>
           <div>
-            {awayTeam}
+            {away_team}
           </div>
           <div>
-            {homeTeam}
+            {home_team}
           </div>
         </section>
         <section style={spreadColumn}>
           <div>
-            {awaySpread}
+            {away_spread}
           </div>
           <div>
-            {homeSpread}
+            {home_spread}
           </div>
         </section>
         <section>
@@ -66,8 +66,8 @@ class OneMatchup extends React.Component {
             <label>
               <select value={value} onChange={this.handleChange} required>
                 <option value="" hidden>select</option>
-                <option value={`${awayTeam} ${awaySpread}`}>{awayTeam} {awaySpread}</option>
-                <option value={`${homeTeam} ${homeSpread}`}>{homeTeam} {homeSpread}</option>
+                <option value={`${away_team} ${away_spread}`}>{away_team} {away_spread}</option>
+                <option value={`${home_team} ${home_spread}`}>{home_team} {home_spread}</option>
               </select>
             </label>
             <input type="submit" disabled={disabled} value="Submit" />
