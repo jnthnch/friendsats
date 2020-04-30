@@ -36,4 +36,4 @@
 | Column  | Type |
 | ------------- | ------------- |
 | user_id | FOREIGN KEY  |
-| selection_id | FORIEGN KEY  |
+| selection_id | FOREIGN KEY  |
