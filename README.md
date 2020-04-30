@@ -24,7 +24,7 @@
 | Column  | Type |
 | ------------- | ------------- |
 | id | PRIMARY KEY  |
-| game_id | FORIEGN KEY  |
+| game_id | FOREIGN KEY  |
 | time | TIME  |
 | date | DATE  |
 | selection | TEXT  |
