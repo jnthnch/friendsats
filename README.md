@@ -19,18 +19,6 @@
 | homeSpread | TEXT  |
 | awaySpread | TEXT  |
 
-#### games
-
-| Column  | Type |
-| ------------- | ------------- |
-| id | PRIMARY KEY  |
-| homeTeam | TEXT  |
-| awayTeam | TEXT  |
-| homeScore | INTEGER  |
-| awayScore | INTEGER  |
-| homeSpread | TEXT  |
-| awaySpread | TEXT  |
-
 #### selections
 
 | Column  | Type |
