@@ -24,4 +24,12 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+
+//add user
+
+// add selection
+// INSERT INTO selections (id, game_id, time, date, selection, is_won, is_push) 
+
+// add user_selection
+// INSERT INTO user_selections (user_id, selection_id) VALUES ((SELECT id from users WHERE id=1), (SELECT id FROM selections where id=1))
 module.exports = router;
