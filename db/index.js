@@ -1,5 +1,5 @@
 const { Client } = require("pg");
-const constants = require('../constants')
+// const constants = require('../constants')
 const db = process.env.NODE_ENV === "test" ? "friendsats-test" : "friendsats";
 
 const client = new Client({
