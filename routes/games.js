@@ -12,24 +12,32 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.post("/", async (req, res, next) => {
-  try {
-    const result = await db.query(
-      "INSERT INTO games (username, password) VALUES ($1,$2) RETURNING *",
-      [req.body.username, hashedPassword]
-    );
-    return res.json(result.rows[0]);
-  } catch (e) {
-    return next(e);
-  }
-});
+// router.post("/", async (req, res, next) => {
+//   try {
+//     const result = await db.query(
+//       "INSERT INTO games (username, password) VALUES ($1,$2) RETURNING *",
+//       [req.body.username, hashedPassword]
+//     );
+//     return res.json(result.rows[0]);
+//   } catch (e) {
+//     return next(e);
+//   }
+// });
 
 
+
+// create users table
+// CREATE TABLE users (id SERIAL, username text, PRIMARY KEY (id));
 //add user
 
+
+// create games table
+// CREATE TABLE games(id INTEGER, homeTeam text, awayTeam text, homeScore INTEGER, awayScore INTEGER, homeSpread text, awaySpread text, PRIMARY KEY(id));
 // add selection
 // INSERT INTO selections (id, game_id, time, date, selection, is_won, is_push) 
 
+
+// INSERT INTO games (id, homeTeam, awayTeam, homeSpread, awaySpread) VALUES (10, 'Chiefs', 'Texans', '-10', '+10');
 // add user_selection
 // INSERT INTO user_selections (user_id, selection_id) VALUES ((SELECT id from users WHERE id=1), (SELECT id FROM selections where id=1))
 
