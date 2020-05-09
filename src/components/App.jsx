@@ -34,14 +34,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/games')
-      .then(response => response.json())
-      .then(data => this.setState({
-        gameSpreads: data
-      }, () => { console.log('callback data is', data) }))
-    // this.setState({
-    //   gameSpreads: gameSpreads
-    // })
+    // fetch('/games')
+    //   .then(response => response.json())
+    //   .then(data => this.setState({
+    //     gameSpreads: data
+    //   }, () => { console.log('callback data is', data) }))
+    this.setState({
+      gameSpreads: gameSpreads
+    })
   }
 
   addUserSelection(selection) {
