@@ -32,4 +32,11 @@ router.post("/", async (req, res, next) => {
 
 // add user_selection
 // INSERT INTO user_selections (user_id, selection_id) VALUES ((SELECT id from users WHERE id=1), (SELECT id FROM selections where id=1))
+
+// update games
+// UPDATE games SET home_team = 'Chiefs', away_team = 'Texans', home_spread = '-10', away_spread = '+10' WHERE id = 10;
+// UPDATE games SET home_team = 'Falcons', away_team = 'Seahawks', home_spread = 'pk', away_spread = 'pk' WHERE id = 11;
+// UPDATE games SET home_team = 'Redskins', away_team = 'Eagles', home_spread = '+6.5', away_spread = '-6.5' WHERE id = 12;
+// UPDATE games SET home_team = 'Patriots', away_team = 'Dolphins', home_spread = '-6.5', away_spread = '+6.5' WHERE id = 13;
+
 module.exports = router;

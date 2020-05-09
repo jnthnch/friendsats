@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const usersRoutes = require("./routes/users");
 const gamesRoutes = require('./routes/games')
 
+
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
 app.use("/users", usersRoutes);
